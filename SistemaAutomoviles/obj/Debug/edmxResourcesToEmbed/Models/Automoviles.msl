@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ControldeAutosModelStoreContainer" CdmEntityContainer="MyDbContext1">
+    <EntitySetMapping Name="Automovil">
+      <EntityTypeMapping TypeName="ControldeAutosModel.Automovil">
+        <MappingFragment StoreEntitySet="Automovil">
+          <ScalarProperty Name="FolioAuto" ColumnName="FolioAuto" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Tipo_transmision" ColumnName="Tipo_transmision" />
+          <ScalarProperty Name="Descripcion_fisica" ColumnName="Descripcion_fisica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solicitud_de_transporte">
+      <EntityTypeMapping TypeName="ControldeAutosModel.Solicitud_de_transporte">
+        <MappingFragment StoreEntitySet="Solicitud_de_transporte">
+          <ScalarProperty Name="NumLote" ColumnName="NumLote" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transporte_auto">
+      <EntityTypeMapping TypeName="ControldeAutosModel.transporte_auto">
+        <MappingFragment StoreEntitySet="transporte_auto">
+          <ScalarProperty Name="NumLote" ColumnName="NumLote" />
+          <ScalarProperty Name="FolioAuto" ColumnName="FolioAuto" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AgregaAuto" FunctionName="ControldeAutosModel.Store.AgregaAuto" />
+    <FunctionImportMapping FunctionImportName="ModificaAuto" FunctionName="ControldeAutosModel.Store.ModificaAuto" />
+    <FunctionImportMapping FunctionImportName="VerAutos" FunctionName="ControldeAutosModel.Store.VerAutos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ControldeAutosModel.VerAutos_Result">
+          <ScalarProperty Name="FolioAuto" ColumnName="FolioAuto" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Tipo_Transmision" ColumnName="Tipo_Transmision" />
+          <ScalarProperty Name="Descripcion_fisica" ColumnName="Descripcion_fisica" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="VerAutoTransporte" FunctionName="ControldeAutosModel.Store.VerAutoTransporte">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ControldeAutosModel.VerAutoTransporte_Result">
+          <ScalarProperty Name="NumLote" ColumnName="NumLote" />
+          <ScalarProperty Name="FolioAuto" ColumnName="FolioAuto" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Tipo_Transmision" ColumnName="Tipo_Transmision" />
+          <ScalarProperty Name="Descripcion_fisica" ColumnName="Descripcion_fisica" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PeticionAutoTransporte" FunctionName="ControldeAutosModel.Store.PeticionAutoTransporte" />
+    <FunctionImportMapping FunctionImportName="FN_PeticionAutoTransporte1" FunctionName="ControldeAutosModel.Store.PeticionAutoTransporte" />
+    <FunctionImportMapping FunctionImportName="fn_peticiontransporte" FunctionName="ControldeAutosModel.Store.PeticionAutoTransporte" />
+  </EntityContainerMapping>
+</Mapping>

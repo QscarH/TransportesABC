@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ControldeAutosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Automovil">
+    <Key>
+      <PropertyRef Name="FolioAuto" />
+    </Key>
+    <Property Name="FolioAuto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo_transmision" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion_fisica" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="transporte_auto" Relationship="Self.AutoOrden" FromRole="Automovil" ToRole="transporte_auto" />
+  </EntityType>
+  <EntityType Name="Solicitud_de_transporte">
+    <Key>
+      <PropertyRef Name="NumLote" />
+    </Key>
+    <Property Name="NumLote" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="transporte_auto" Relationship="Self.SolicitudOrden" FromRole="Solicitud_de_transporte" ToRole="transporte_auto" />
+  </EntityType>
+  <EntityType Name="transporte_auto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="NumLote" Type="Int32" />
+    <Property Name="FolioAuto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Automovil" Relationship="Self.AutoOrden" FromRole="transporte_auto" ToRole="Automovil" />
+    <NavigationProperty Name="Solicitud_de_transporte" Relationship="Self.SolicitudOrden" FromRole="transporte_auto" ToRole="Solicitud_de_transporte" />
+  </EntityType>
+  <Association Name="AutoOrden">
+    <End Role="Automovil" Type="Self.Automovil" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="transporte_auto" Type="Self.transporte_auto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automovil">
+        <PropertyRef Name="FolioAuto" />
+      </Principal>
+      <Dependent Role="transporte_auto">
+        <PropertyRef Name="FolioAuto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudOrden">
+    <End Role="Solicitud_de_transporte" Type="Self.Solicitud_de_transporte" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="transporte_auto" Type="Self.transporte_auto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud_de_transporte">
+        <PropertyRef Name="NumLote" />
+      </Principal>
+      <Dependent Role="transporte_auto">
+        <PropertyRef Name="NumLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyDbContext1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Automovil" EntityType="Self.Automovil" />
+    <EntitySet Name="Solicitud_de_transporte" EntityType="Self.Solicitud_de_transporte" />
+    <EntitySet Name="transporte_auto" EntityType="Self.transporte_auto" />
+    <AssociationSet Name="AutoOrden" Association="Self.AutoOrden">
+      <End Role="Automovil" EntitySet="Automovil" />
+      <End Role="transporte_auto" EntitySet="transporte_auto" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudOrden" Association="Self.SolicitudOrden">
+      <End Role="Solicitud_de_transporte" EntitySet="Solicitud_de_transporte" />
+      <End Role="transporte_auto" EntitySet="transporte_auto" />
+    </AssociationSet>
+    <FunctionImport Name="AgregaAuto">
+      <Parameter Name="folio" Mode="In" Type="String" />
+      <Parameter Name="marca" Mode="In" Type="String" />
+      <Parameter Name="modelo" Mode="In" Type="String" />
+      <Parameter Name="color" Mode="In" Type="String" />
+      <Parameter Name="Tipo_transmision" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ModificaAuto">
+      <Parameter Name="folio" Mode="In" Type="String" />
+      <Parameter Name="marca" Mode="In" Type="String" />
+      <Parameter Name="modelo" Mode="In" Type="String" />
+      <Parameter Name="color" Mode="In" Type="String" />
+      <Parameter Name="Tipo_transmision" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="VerAutos" ReturnType="Collection(ControldeAutosModel.VerAutos_Result)" />
+    <FunctionImport Name="VerAutoTransporte" ReturnType="Collection(ControldeAutosModel.VerAutoTransporte_Result)" />
+    <FunctionImport Name="PeticionAutoTransporte">
+      <Parameter Name="lote" Mode="In" Type="Int32" />
+      <Parameter Name="folio" Mode="In" Type="String" />
+      <Parameter Name="marca" Mode="In" Type="String" />
+      <Parameter Name="modelo" Mode="In" Type="String" />
+      <Parameter Name="color" Mode="In" Type="String" />
+      <Parameter Name="Tipo_transmision" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="FN_PeticionAutoTransporte1" EntitySet="transporte_auto" ReturnType="Collection(ControldeAutosModel.transporte_auto)">
+      <Parameter Name="lote" Mode="In" Type="Int32" />
+      <Parameter Name="folio" Mode="In" Type="String" />
+      <Parameter Name="marca" Mode="In" Type="String" />
+      <Parameter Name="modelo" Mode="In" Type="String" />
+      <Parameter Name="color" Mode="In" Type="String" />
+      <Parameter Name="Tipo_transmision" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="fn_peticiontransporte">
+      <Parameter Name="lote" Mode="In" Type="Int32" />
+      <Parameter Name="folio" Mode="In" Type="String" />
+      <Parameter Name="marca" Mode="In" Type="String" />
+      <Parameter Name="modelo" Mode="In" Type="String" />
+      <Parameter Name="color" Mode="In" Type="String" />
+      <Parameter Name="Tipo_transmision" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="VerAutos_Result">
+    <Property Type="String" Name="FolioAuto" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Marca" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Modelo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Color" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Tipo_Transmision" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Descripcion_fisica" Nullable="true" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="VerAutoTransporte_Result">
+    <Property Type="Int32" Name="NumLote" Nullable="false" />
+    <Property Type="String" Name="FolioAuto" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Marca" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Modelo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Color" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Tipo_Transmision" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Descripcion_fisica" Nullable="true" MaxLength="250" />
+  </ComplexType>
+</Schema>

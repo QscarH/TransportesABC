@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ABC</h1>
+    <p class="lead">Empresa número 1 en el transporte de autos</p>
+    <p><a href="" class="btn btn-primary btn-lg">Leer más &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Ver automoviles</h2>
+        <p>
+            Vea los automoviles registrados hasta ahora para su transporte.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Automovils", "Automoviles")">Ver &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Ver peticiones de transporte</h2>
+        <p>Vea las últimas peticiones de transporte por fecha</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Peticion", "Transporte")">Ver &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Transporte y autos</h2>
+        <p>Vea que automoviles están asociados con que transporte. (en progreso).</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "transporte_auto", "Peticiones")">Ver &raquo;</a></p>
+    </div>
+</div>

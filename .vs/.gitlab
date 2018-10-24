@@ -1,0 +1,13 @@
+{
+  "User": {
+    "Id": 3037296,
+    "Username": "Qscar",
+    "Name": "Oscar",
+    "Email": "armedoscar@gmail.com",
+    "AvatarUrl": "https://secure.gravatar.com/avatar/407e176284e7afa36f0ad5d00ae07063?s=80&d=identicon",
+    "PrivateToken": "d079e18c62e9aa0a9bb1c92c7e479118a385d769b2bd194c7da9658f89691e28",
+    "Host": "https://gitlab.com",
+    "TwoFactorEnabled": false,
+    "ApiVersion": 3
+  }
+}

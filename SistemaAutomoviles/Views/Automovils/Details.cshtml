@@ -1,0 +1,58 @@
+﻿@model SistemaAutomoviles.Models.Automovil
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Automovil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_transmision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_transmision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion_fisica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion_fisica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FolioAuto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

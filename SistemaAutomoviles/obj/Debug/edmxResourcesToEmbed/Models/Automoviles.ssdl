@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ControldeAutosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Automovil">
+    <Key>
+      <PropertyRef Name="FolioAuto" />
+    </Key>
+    <Property Name="FolioAuto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="50" />
+    <Property Name="Modelo" Type="varchar" MaxLength="50" />
+    <Property Name="Color" Type="varchar" MaxLength="50" />
+    <Property Name="Tipo_transmision" Type="varchar" MaxLength="50" />
+    <Property Name="Descripcion_fisica" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Solicitud_de_transporte">
+    <Key>
+      <PropertyRef Name="NumLote" />
+    </Key>
+    <Property Name="NumLote" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="date" />
+  </EntityType>
+  <EntityType Name="transporte_auto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="NumLote" Type="int" />
+    <Property Name="FolioAuto" Type="varchar" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_auto_Solicitud_de_transporte">
+    <End Role="Solicitud_de_transporte" Type="Self.Solicitud_de_transporte" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="transporte_auto" Type="Self.transporte_auto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud_de_transporte">
+        <PropertyRef Name="NumLote" />
+      </Principal>
+      <Dependent Role="transporte_auto">
+        <PropertyRef Name="NumLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_auto_transporte">
+    <End Role="Automovil" Type="Self.Automovil" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="transporte_auto" Type="Self.transporte_auto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automovil">
+        <PropertyRef Name="FolioAuto" />
+      </Principal>
+      <Dependent Role="transporte_auto">
+        <PropertyRef Name="FolioAuto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AgregaAuto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="folio" Type="varchar" Mode="In" />
+    <Parameter Name="marca" Type="varchar" Mode="In" />
+    <Parameter Name="modelo" Type="varchar" Mode="In" />
+    <Parameter Name="color" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo_transmision" Type="varchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ModificaAuto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="folio" Type="varchar" Mode="In" />
+    <Parameter Name="marca" Type="varchar" Mode="In" />
+    <Parameter Name="modelo" Type="varchar" Mode="In" />
+    <Parameter Name="color" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo_transmision" Type="varchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PeticionAutoTransporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="lote" Type="int" Mode="In" />
+    <Parameter Name="folio" Type="varchar" Mode="In" />
+    <Parameter Name="marca" Type="varchar" Mode="In" />
+    <Parameter Name="modelo" Type="varchar" Mode="In" />
+    <Parameter Name="color" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo_transmision" Type="varchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="VerAutos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="VerAutoTransporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ControldeAutosModelStoreContainer">
+    <EntitySet Name="Automovil" EntityType="Self.Automovil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Solicitud_de_transporte" EntityType="Self.Solicitud_de_transporte" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transporte_auto" EntityType="Self.transporte_auto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_auto_Solicitud_de_transporte" Association="Self.FK_auto_Solicitud_de_transporte">
+      <End Role="Solicitud_de_transporte" EntitySet="Solicitud_de_transporte" />
+      <End Role="transporte_auto" EntitySet="transporte_auto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_auto_transporte" Association="Self.fk_auto_transporte">
+      <End Role="Automovil" EntitySet="Automovil" />
+      <End Role="transporte_auto" EntitySet="transporte_auto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
